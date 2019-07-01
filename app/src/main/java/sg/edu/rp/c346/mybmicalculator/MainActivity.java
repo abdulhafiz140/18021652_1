@@ -18,6 +18,7 @@ Button cal;
 Button reset;
 TextView date;
 TextView BMI;
+TextView check;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,7 @@ TextView BMI;
         reset = findViewById(R.id.btnReset);
         date = findViewById(R.id.textViewDate);
         BMI = findViewById(R.id.textViewBMI);
+        check = findViewById(R.id.Checker);
 
         cal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +47,18 @@ TextView BMI;
                         now.get(Calendar.MINUTE);
 
                 date.setText(datetime);
+                if (strBMI < 18.5) {
+                    check.setText("You are underweight");
+                }
+                else if (strBMI < 24.9){
+                    check.setText("Your BMI is normal");
+                }
+                else if (strBMI < 29.9){
+                    check.setText("Your are overweight");
+                }
+                else{
+                    check.setText("You are obese");
+                }
             }
         });
         reset.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +68,7 @@ TextView BMI;
                 height.setText("");
                 date.setText("Last Calculated Date: ");
                 BMI.setText("Last Calculated BMI:0.0 ");
+                check.setText("");
             }
         });
     }
