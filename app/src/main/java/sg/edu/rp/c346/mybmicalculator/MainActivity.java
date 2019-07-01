@@ -73,20 +73,33 @@ TextView check;
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String msg = prefs.getString("BMI", "Last Calculated BMI:0.0");
+        BMI.setText("msg");
+        String msg1 = prefs.getString("date", "Last Calculated Date: ");
+        date.setText(msg1);
+        String msg2 = prefs.getString("check", "");
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
         float strBMI = Float.parseFloat(weight.getText().toString()) / (Float.parseFloat(height.getText().toString()) * Float.parseFloat(height.getText().toString()));
+        String value = Float.toString(strBMI);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
+        String currdate = date.getText().toString();
+        String CHeck = check.getText().toString();
         SharedPreferences.Editor prefEdit = prefs.edit();
 
-        prefEdit.putFloat("BMI", strBMI);
-
-
-
-
+        prefEdit.putString("BMI", value);
+        prefEdit.putString("date", currdate);
+        prefEdit.putString("check", CHeck);
+        prefEdit.commit();
 
     }
 }
